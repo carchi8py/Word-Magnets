@@ -14,7 +14,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         var wordArray = ["I", "like", "to", "eat", "pizza", "my", "favorite"]
         
         for word in wordArray {
@@ -33,8 +32,22 @@ class ViewController: UIViewController {
             
             view.addSubview(label)
             
+            //Pan Gesture
+            var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+            label.addGestureRecognizer(panGesture)
+            label.userInteractionEnabled = true
         }
-
+    }
+    
+    func handlePanGesture(panGesture: UIPanGestureRecognizer){
+        // get translation
+        var translation = panGesture.translationInView(view)
+        panGesture.setTranslation(CGPointZero, inView: view)
+        
+        //add dx/dy to current label position
+        
+        var label = panGesture.view as! UILabel
+        label.center = CGPoint(x: label.center.x + translation.x, y: label.center.y + translation.y)
     }
 
     override func didReceiveMemoryWarning() {
