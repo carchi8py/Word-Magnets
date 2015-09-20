@@ -10,33 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var wordArray = ["I", "like", "to", "eat", "pizza", "my", "favorite"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        var wordArray = ["I", "like", "to", "eat", "pizza", "my", "favorite"]
-        
-        for word in wordArray {
-            var label = UILabel()
-            label.text = word
-            label.font = UIFont.systemFontOfSize(32)
-            
-            label.sizeToFit()
-            
-            label.backgroundColor = UIColor.whiteColor()
-            
-            var x = CGFloat(arc4random_uniform(300))
-            var y = CGFloat(arc4random_uniform(450))
-            
-            label.center = CGPoint(x: x, y: y)
-            
-            view.addSubview(label)
-            
-            //Pan Gesture
-            var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
-            label.addGestureRecognizer(panGesture)
-            label.userInteractionEnabled = true
-        }
+        // Do any additional setup after loading the view, typically from a nib
+        addLabels()
     }
     
     func handlePanGesture(panGesture: UIPanGestureRecognizer){
@@ -48,6 +27,41 @@ class ViewController: UIViewController {
         
         var label = panGesture.view as! UILabel
         label.center = CGPoint(x: label.center.x + translation.x, y: label.center.y + translation.y)
+    }
+    
+    func addLabels(){
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        
+        for word in wordArray {
+            var label = UILabel()
+            label.text = word
+            label.font = UIFont.systemFontOfSize(32)
+            
+            label.sizeToFit()
+            
+            label.backgroundColor = UIColor.whiteColor()
+            
+            var intX = arc4random_uniform(UInt32(screenSize.width) - 30)
+            if intX < 30 {
+                intX = intX + 30
+            }
+            var intY = arc4random_uniform(UInt32(screenSize.height) - 30)
+            if intY < 30 {
+                intY = intY + 30
+            }
+            
+            var x = CGFloat(intX)
+            var y = CGFloat(intY)
+            
+            label.center = CGPoint(x: x, y: y)
+            
+            view.addSubview(label)
+            
+            //Pan Gesture
+            var panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+            label.addGestureRecognizer(panGesture)
+            label.userInteractionEnabled = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
