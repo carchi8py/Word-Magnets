@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var wordArray = ["I", "like", "to", "eat", "pizza", "my", "favorite"]
+    var wordArray = ["I", "like", "to", "eat", "pizza", "my", "favorite", "the", "store", "Skyrim", "from",
+    "that", "have", "not", "at", "all", "time", "person", "year", "be", "have", "do", "good", "new", "first"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
